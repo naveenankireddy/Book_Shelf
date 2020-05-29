@@ -8,12 +8,13 @@ POST    /users/regiaster - Redirect to GET/login
 GET     /users/login - Login Page
 POST    /users/login - Redirect to GET/books
 
+GET     /users/profile - Logged-in user's profile
+
 GET     /books - AllBooks Page
-mn
 GET     /books/createbook - Create Book Page
 POST    /books/createbook - Redirect to GET/books
+GET     /books/:id        - Single book details
 
-GET /books//:id for single book details
 
 
 

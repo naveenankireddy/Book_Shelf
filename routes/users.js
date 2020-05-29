@@ -32,8 +32,8 @@ router.post("/login", async (req, res, next) => {
   var user = await User.findOne({ email }, (err, user) => {
     if (err) return next(err);
     if (!user || !user.verifyPassword(password)) {
-        res.redirect("/users/login");
-        }
+      res.redirect("/users/login");
+    }
     req.session.userId = user.id;
 
     console.log("User", user);
@@ -51,12 +51,27 @@ router.post("/login", async (req, res, next) => {
 //   })
 // })
 
-
-
 //GET user profile
 
-// router.get("/")
+router.get("/profile", async (req, res, next) => {
+  var { userId } = req.session;
+  console.log({ userId });
+  var user = await User.findById(userId, (err, user) => {
+    if (err) return next(err);
+    return user;
+  });
+  res.render("userprofile", { user });
+});
 
-
+router.post("/profile", async (req, res, next) => {
+  var { userId } = req.session;
+  var updateValue = req.body;
+  console.log("working", updateValue);
+  let user = await User.findByIdAndUpdate(userId, updateValue, (err, user) => {
+    if (err) return next(err);
+    return user;
+  });
+  res.redirect("/books");
+});
 
 module.exports = router;

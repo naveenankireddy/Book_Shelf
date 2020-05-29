@@ -1,10 +1,10 @@
-<!-- 
-    wecome user
-    your orders
-    cart list
-    edit profile
-    address
-
- -->
- <h1>userprofile </h1>
+ <form action="/users/profile" method="POST">
+     <label for="name">Name</label>
+     <input type="text" name="name" id="name" value="<%= user.name %>"  >
+     <label for="email">Email</label>
+     <input type="email" name="email" id="email" value="<%= user.email %> " >
+     <label for="address">Address</label>
+    <textarea name="address" id="address" cols="30" rows="10"><%= user.address%></textarea>
+     <input type="submit" value="submit">
+ </form>
  
