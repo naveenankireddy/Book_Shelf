@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AllBooks</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Libre+Caslon+Text&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div>
+      <h2>Welcome <%= user.name %> </h2>
+    </div>
+    <div>
+      <h1>Books</h1>
+    </div>
+    <ul>
+      <% books.forEach(elem=> {%>
+      <li>
+        <div>
+          <a href="books/<%= elem.id%>"
+            ><p><%= elem.title%></p></a>     
+        </div>
+          <p><img src="<%= elem.imageUrl %>" alt=""></p>
+          <p><%= elem.author %> </p>
+          <p><%= elem.price %> </p>
+      </li>
+    <% }) %>
+    </ul>
+    <a href="/books/createbook">createbook</a>
+  </body>
+</html>
