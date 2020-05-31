@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/user");
+var Cart = require("../models/cart");
 // var session = require("express-session");
 
 /* GET users listing. */
@@ -73,5 +74,13 @@ router.post("/profile", async (req, res, next) => {
   });
   res.redirect("/books");
 });
+
+
+
+
+
+
+
+
 
 module.exports = router;

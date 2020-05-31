@@ -15,6 +15,9 @@ GET     /books/createbook - Create Book Page
 POST    /books/createbook - Redirect to GET/books
 GET     /books/:id        - Single book details
 
+GET     /users/profile     - GET profile
+POST    /users/profile     - profile will updated
+
 
 
 

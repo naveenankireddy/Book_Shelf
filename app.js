@@ -9,9 +9,11 @@ var MongoStore = require("connect-mongo")(session);
 var passport = require("passport");
 
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var booksRouter = require('./routes/books');
+var cartRouter = require('./routes/cart');
 
 
 var app = express();
@@ -47,6 +49,7 @@ app.use(
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/books", booksRouter);
+app.use("/cart", cartRouter);
 
 
 

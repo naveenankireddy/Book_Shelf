@@ -1,0 +1,16 @@
+<h2>your cart</h2>
+<ul>
+    <% cart.products.forEach(book=> {%>
+    <li>
+      <div>
+        <a href="books/<%= book.id%>"
+          ><p><%= book.title%></p></a>     
+      </div>
+        <p><img src="<%= book.imageUrl %>" alt="" style="width: 100px; height: 150px;"></p>
+        <p><%= book.author %> </p>
+        <p><%= book.price %> </p>
+    </li>
+  <% }) %>
+  </ul>
+
+<% console.log(cart ,"inside cart ejs") %> 
