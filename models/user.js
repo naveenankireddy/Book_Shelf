@@ -16,9 +16,13 @@ var userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Cart",
     },
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
 
-    // githubId: String,
-    // googleId:String,
+    githubId: String,
+    googleId:String,
   },
   { timestamps: true }
 );

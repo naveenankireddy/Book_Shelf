@@ -22,7 +22,7 @@
       <% books.forEach(book=> {%>
       <li>
         <div>
-          <a href="books/<%= book.id%>"><p><%= book.title%></p></a>
+          <a href="/books/<%= book.id%>"><p><%= book.title%></p></a>
         </div>
         <p>
           <img
@@ -33,6 +33,7 @@
         </p>
         <p><%= book.author %></p>
         <p><%= book.price %></p>
+        <p><%= book.category %></p>
         <form action="/cart/books/<%= book.id %>" method="POST">
           <input type="submit" value="add to cart" />
         </form>
@@ -41,5 +42,11 @@
     </ul>
     <a href="/books/createbook">createbook</a>
     <a href="/cart">Cart</a>
+
+    <div>
+      <a href="/books/category/drama">Drama</a>
+      <a href="/books/category/adventure">Adventure</a>
+      <a href="/books/category/fiction">Fiction</a>
+    </div>
   </body>
 </html>

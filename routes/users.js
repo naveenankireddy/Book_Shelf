@@ -18,7 +18,7 @@ router.get("/register", (req, res) => {
 router.post("/register", (req, res, next) => {
   User.create(req.body, (err, user) => {
     if (err) return next(err);
-    res.redirect("login");
+    res.redirect("/users/login");
   });
 });
 
@@ -30,16 +30,13 @@ router.get("/login", (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   var { email, password } = req.body;
 
-  var user = await User.findOne({ email }, (err, user) => {
-    if (err) return next(err);
-    if (!user || !user.verifyPassword(password)) {
-      res.redirect("/users/login");
-    }
-    req.session.userId = user.id;
+  var user = await User.findOne({ email });
+  if (!user && !user.verifyPassword(password)) {
+    res.redirect("/users/login");
+  }
+  req.session.userId = user.id;
 
-    console.log("User", user);
-    return user;
-  });
+  // console.log("User", user);
   res.redirect("/books");
 });
 
@@ -74,13 +71,5 @@ router.post("/profile", async (req, res, next) => {
   });
   res.redirect("/books");
 });
-
-
-
-
-
-
-
-
 
 module.exports = router;

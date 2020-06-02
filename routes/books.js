@@ -10,51 +10,55 @@ var User = require("../models/user");
 router.get("/", async (req, res, next) => {
   var books = await Book.find({}, (err, books) => {
     if (err) return next(err);
-    console.log(books);
     return books;
   });
-  var {userId} = req.session;
+  var { userId } = req.session;
   var user = await User.findById(userId, (err, user) => {
-    if(err) return next(err);
-    console.log(user);
-    
+    if (err) return next(err);
     return user;
-  })
-  
+  });
+
   res.render("allBooks", { books, user });
 });
 
 //createBook
 //get the books/createbook
-    //render("createBook") in ejs
-router.get("/createbook",(req,res) => {
-    res.render("createBook");
+//render("createBook") in ejs
+router.get("/createbook", (req, res) => {
+  res.render("createBook");
 });
 
-router.post("/createbook",(req,res,next) => {
-    console.log(req.body);
-    
-    Book.create(req.body, (err,book) => {
-        if(err) return next(err);
-        res.redirect("/books");
-    })
-})
+router.post("/createbook", (req, res, next) => {
+  // console.log(req.body);
+
+  Book.create(req.body, (err, book) => {
+    if (err) return next(err);
+    res.redirect("/books");
+  });
+});
 
 //get single book
 
-router.get("/:id",(req,res,next) => {
+router.get("/:id", (req, res, next) => {
   var id = req.params.id;
   Book.findById(id)
-  .populate("")
-  .exec((err,book) => {
-    if(err) return next(err);
-    res.render("bookdetails",{book});
-  })
-})
+    .populate("")
+    .exec((err, book) => {
+      if (err) return next(err);
+      res.render("bookdetails", { book });
+    });
+});
 
+//get books by categories
 
-
-
-
+router.get("/category/:category", async (req, res, next) => {
+  try {
+    let user = await User.findById(req.session.userId);
+    let books = await Book.find({ category: req.params.category });
+    res.render("allBooks", { books, user });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
