@@ -39,14 +39,50 @@ router.post("/createbook", (req, res, next) => {
 
 //get single book
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   var id = req.params.id;
-  Book.findById(id)
-    .populate("")
-    .exec((err, book) => {
-      if (err) return next(err);
-      res.render("bookdetails", { book });
-    });
+
+  try {
+    let book = await Book.findById(id);
+    var user = await User.findById(req.session.userId);
+
+    res.render("bookdetails", { book, user });
+  } catch (error) {
+    next(err);
+  }
+});
+
+//edit book form
+router.get("/:id/edit", async (req, res, next) => {
+  try {
+    let bookId = req.params.id;
+    let book = await Book.findById(bookId);
+    res.render("updateBook", { book });
+  } catch (error) {
+    next(err);
+  }
+});
+
+//edit book
+router.post("/:id/edit", async (req, res, next) => {
+  try {
+    let bookId = req.params.id;
+    await Book.findByIdAndUpdate(bookId, req.body);
+    res.redirect(`/books/${bookId}`);
+  } catch (error) {
+    next(err);
+  }
+});
+
+//delete book
+router.get("/:id/delete", async (req, res, next) => {
+  try {
+    let bookId = req.params.id;
+    await Book.findByIdAndDelete(bookId);
+    res.redirect("/books");
+  } catch (error) {
+    next(err);
+  }
 });
 
 //get books by categories

@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
       path: "bookId",
     },
   });
+  console.log(cart, "inside cart router");
   res.render("cart", { cart });
 });
 

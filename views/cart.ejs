@@ -1,17 +1,69 @@
-<h2>your cart</h2>
-<ul>
-  <% cart.products.forEach(book=> {%> <%= console.log(book,"jvjvjhvhj") %>
-  <li>
-    <p>
-      <img
-        src="<%= book.bookId.imageUrl %>"
-        alt=""
-        style="width: 100px; height: 150px;"
-      />
-    </p>
-    <p><%= book.bookId.author %></p>
-    <p>RS<%= book.bookId.price %></p>
-    <p>Quantity<%= book.quantity %></p>
-  </li>
-  <% }) %>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div style="text-align: center;">
+      <h2>your cart</h2>
+    </div>
+
+    <div class="component">
+      <ul class="align">
+        <% cart.products.forEach(book=> {%>
+        <li>
+          <figure class="book">
+            <!-- Front -->
+
+            <ul class="hardcover_front">
+              <li>
+                <img
+                  class="coverDesign"
+                  src="<%= book.bookId.imageUrl %>"
+                  alt=""
+                />
+              </li>
+              <li></li>
+            </ul>
+
+            <!-- Pages -->
+
+            <ul class="page">
+              <li></li>
+              <li>
+                <a class="btn" href="/books/<%= book.bookId.id %> ">Details</a>
+              </li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+
+            <!-- Back -->
+
+            <ul class="hardcover_back">
+              <li></li>
+              <li></li>
+            </ul>
+            <ul class="book_spine">
+              <li></li>
+              <li></li>
+            </ul>
+            <figcaption>
+              <h1><%= book.bookId.title %></h1>
+              <span>BY <%=book.author %> </span>
+              <!-- <p><%# book.description %> </p> -->
+              <h3>$ <%= book.bookId.price %></h3>
+              <h3>Quantity :<%= book.quantity %></h3>
+            </figcaption>
+          </figure>
+        </li>
+
+        <% }) %>
+      </ul>
+    </div>
+  </body>
+</html>

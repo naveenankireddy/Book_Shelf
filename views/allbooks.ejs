@@ -12,41 +12,121 @@
     />
   </head>
   <body>
-    <div>
-      <h2>Welcome <%= user.name %></h2>
-    </div>
-    <div>
-      <h1>Books</h1>
-    </div>
-    <ul>
-      <% books.forEach(book=> {%>
-      <li>
-        <div>
-          <a href="/books/<%= book.id%>"><p><%= book.title%></p></a>
-        </div>
-        <p>
-          <img
-            src="<%= book.imageUrl %>"
-            alt=""
-            style="width: 100px; height: 150px;"
-          />
-        </p>
-        <p><%= book.author %></p>
-        <p><%= book.price %></p>
-        <p><%= book.category %></p>
-        <form action="/cart/books/<%= book.id %>" method="POST">
-          <input type="submit" value="add to cart" />
-        </form>
-      </li>
-      <% }) %>
-    </ul>
-    <a href="/books/createbook">createbook</a>
-    <a href="/cart">Cart</a>
+    <header class="header-main">
+      <ul>
+        <li><a href="/books">BookShelf</a></li>
+        <li><a href="">welcome <%= user.name %> </a></li>
+        <li><a href="">category</a>
+          <ul>
+            <li><a href="/books/category/drama">Drama</a></li>
+            <li><a href="/books/category/adventure">Adventure</a></li>
+            <li><a href="/books/category/fiction">Fiction</a></li>
+    
+          </ul>
+        </li>
+        <% if(user.isAdmin){ %>
+          <li><a href="/books/createbook">createbook</a></li>
+          <% } %>
+          <% if(!user.isAdmin){ %>
+            <li><a href="/cart"><img class="cart-logo" src="https://image.flaticon.com/icons/png/512/44/44312.png" alt=""></a></li>
+          <% } %>  
+          <li><a href="/users/profile">Profile</a></li>
+        <li><a href="/users/logout">logout</a></li>
+      </ul>
+    </header>
+    
+  
+<div class="component">
+  <ul class="align">
+    <% books.forEach(book=> {%>
+    <li>
+      <figure class='book'>
 
-    <div>
-      <a href="/books/category/drama">Drama</a>
-      <a href="/books/category/adventure">Adventure</a>
-      <a href="/books/category/fiction">Fiction</a>
-    </div>
+        <!-- Front -->
+
+        <ul class='hardcover_front'>
+          <li>
+              <img class="coverDesign"
+        src="<%= book.imageUrl %>"
+        alt=""
+      />
+          </li>
+          <li></li>
+        </ul>
+
+        <!-- Pages -->
+
+        <ul class='page'>
+          <li></li>
+          <li>
+            <a class="btn" href="/books/<%= book.id %> ">Details</a>
+          </li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+
+        <!-- Back -->
+
+        <ul class='hardcover_back'>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class='book_spine'>
+          <li></li>
+          <li></li>
+        </ul>
+        <figcaption>
+          <h1> <%= book.title %> </h1>
+          <span>BY <%=book.author %> </span>
+          <!-- <p><%# book.description %> </p> -->
+          <h3>$ <%= book.price %> </h3>
+          <form action="/cart/books/<%= book.id%>" method="POST">
+            <input type="submit" value="add to cart" />
+          </form>
+        </figcaption> 
+      </figure>
+    </li>
+    
+   <% }) %> 
+  </ul>
+</div>
+<div>
+  
+</div>
+
+    
+    
   </body>
 </html>
+
+
+
+
+<!-- <div>
+  <h1>Books</h1>
+</div>
+<ul>
+  <%# books.forEach(book=> {%>
+  <li>
+    <div>
+      <a href="/books/<%# book.id%>"><p><%# book.title%></p></a>
+    </div>
+    <p>
+      <img
+        src="<%# book.imageUrl %>"
+        alt=""
+        style="width: 100px; height: 150px;"
+      />
+    </p>
+    <p><%# book.author %></p>
+    <p><%# book.price %></p>
+    <p><%# book.category %></p>
+    <form action="/cart/books/<%# book.id %>" method="POST">
+      <input type="submit" value="add to cart" />
+    </form>
+  </li>
+  <%# }) %>
+</ul> -->
+
+

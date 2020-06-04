@@ -2,24 +2,34 @@ var express = require("express");
 var router = express.Router();
 var User = require("../models/user");
 var Cart = require("../models/cart");
-// var session = require("express-session");
+var session = require("express-session");
+// var auth = require("../middleware/auth");
 
-/* GET users listing. */
 
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
 
 //register
 router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.post("/register", (req, res, next) => {
-  User.create(req.body, (err, user) => {
-    if (err) return next(err);
+router.post("/register", async (req, res, next) => {
+  try {
+    const admin = ["admin@gmail.com"];
+    if (admin.includes(req.body.email)) {
+      req.body.isAdmin = true;
+      var user = await User.create(req.body);
+      res.redirect("/users/login");
+    }
+
+    //users
+    else {
+      var user = await User.create(req.body);
+    }
+
     res.redirect("/users/login");
-  });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //login
@@ -39,15 +49,6 @@ router.post("/login", async (req, res, next) => {
   // console.log("User", user);
   res.redirect("/books");
 });
-
-// router.post("/login",(req,res,next) => {
-//   var{email, password} = req.body;
-//   User.findOne({email},(err,user) =>{
-//     if(err) return next(err);
-//     req.session.userId = user.id;
-//     res.render("userprofile");
-//   })
-// })
 
 //GET user profile
 
@@ -70,6 +71,13 @@ router.post("/profile", async (req, res, next) => {
     return user;
   });
   res.redirect("/books");
+});
+
+//logout
+router.get("/logout", (req, res, next) => {
+  console.log("logout");
+  req.session.destroy();
+  res.redirect("/users/login");
 });
 
 module.exports = router;

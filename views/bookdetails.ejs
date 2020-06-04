@@ -1,21 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Book_Details</title>
-</head>
-<body>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body class="book-details">
+    <header>
+      <header class="header-main">
+        <ul>
+          <li><a href="/books">BookShelf</a></li>
+          <li><a href="">welcome <%= user.name %> </a></li>
+          <li><a href="">category</a>
+            <ul>
+              <li><a href="/books/category/drama">Drama</a></li>
+              <li><a href="/books/category/adventure">Adventure</a></li>
+              <li><a href="/books/category/fiction">Fiction</a></li>
+      
+            </ul>
+          </li>
+          <% if(user.isAdmin){ %>
+            <li><a href="/books/createbook">createbook</a></li>
+            <% } %>
+            <% if(!user.isAdmin){ %>
+              <li><a href="/cart">Cart</a></li>
+            <% } %>  
+            <li><a href="/users/profile">Profile</a></li>
+          <li><a href="/users/logout">logout</a></li>
+        </ul>
+      </header>
+    </header>
     <ul>
-        <li>
-
-            <p><%= book.title %></p>
-            <p><img src="<%= book.imageUrl %>" alt=""></p>
-            <p><%= book.author %> </p>
-            <p><%= book.price %> </p>
-            <p><%= book.description %> </p>
-        </li>
-      </ul>
-</body>
+      <li>
+        <h3><%= book.title %></h3>
+        <p><img src="<%= book.imageUrl %>" alt="" /></p>
+        <p><b>Written By</b> <%= book.author %></p>
+        <p><b>$ </b> <%= book.price %></p>
+        <div class="summary">
+          <p><b>Summary :</b><%= book.description %></p>
+        </div>
+      </li>
+      <% if(user.isAdmin){ %>
+      <a href="/books/<%= book.id %>/edit">Edit</a>
+      <a href="/books/<%= book.id %>/delete">Delete</a>
+      <% } %>
+    </ul>
+  </body>
 </html>
